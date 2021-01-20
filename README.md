@@ -2,15 +2,15 @@
 
 A new Flutter project.
 
-## Getting Started
+# Movies App
 
-This project is a starting point for a Flutter application.
+[![Build Status](https://travis-ci.org/joemccann/dillinger.svg?branch=master)](https://travis-ci.org/joemccann/dillinger)
 
-A few resources to get you started if this is your first Flutter project:
+La App de peliculas es una herramienta de busqueda para listar una API gratuita con la cual conecta el proyecto.
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
+Lenguaje y herramientas utilizados: 
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+  - Flutter
+  - [Flutter swiper](https://pub.dev/packages/flutter_swiper)
+  - [Flutter http](https://pub.dev/packages/http#-installing-tab-)
+  - [The movieDB (API)](https://www.themoviedb.org/)
