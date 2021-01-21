@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:peliculas_flutter/src/providers/movies_provider.dart';
 import 'package:peliculas_flutter/src/widgets/card_swiper_widget.dart';
+import 'package:peliculas_flutter/src/widgets/movie_horizontal.dart';
 
 //como lo dice el nombre esta sería nuestra pagina de inicio nuestro home
 class HomePage extends StatelessWidget {
@@ -8,6 +9,7 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    moviesProvider.getPopulars();
     return Scaffold(
       //Safearea es un widget el cual se encarga de colocar las cosas en el lugar donde se pueden desplegar
       appBar: AppBar(
@@ -17,7 +19,11 @@ class HomePage extends StatelessWidget {
       ),
       body: Container(
         child: Column(
-          children: [_swiperCards()],
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: [
+            _swiperCards(),
+            _footer(context),
+          ],
         ),
       ),
     );
@@ -40,5 +46,41 @@ class HomePage extends StatelessWidget {
 
     // moviesProvider.getInCinemas();
     // return CardSwiper(movies: [1, 2, 3, 4, 5]);
+  }
+
+  Widget _footer(BuildContext context) {
+    return Container(
+      width: double.infinity,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Container(
+            padding: EdgeInsets.only(left: 20.0),
+            child: Text(
+              'Populares',
+              style: Theme.of(context).textTheme.subtitle1,
+            ),
+          ),
+          SizedBox(
+            height: 5.0,
+          ),
+          //un StreamBuilder se ejecuta cada vez que se emita un stream, un Future solo se ejecuta una vez.
+          StreamBuilder(
+            //aquí llamamos el get de la data
+            stream: moviesProvider.popularsStream,
+            builder: (BuildContext context, AsyncSnapshot<List> snapshot) {
+              if (snapshot.hasData) {
+                return MovieHorizontal(
+                  movies: snapshot.data,
+                  nextPage: moviesProvider.getPopulars,
+                );
+              } else {
+                return Center(child: CircularProgressIndicator());
+              }
+            },
+          ),
+        ],
+      ),
+    );
   }
 }
