@@ -15,7 +15,14 @@ class HomePage extends StatelessWidget {
       appBar: AppBar(
         title: Text('Peliculas'),
         backgroundColor: Colors.indigoAccent,
-        actions: [IconButton(icon: Icon(Icons.search), onPressed: () {})],
+        actions: [
+          IconButton(
+
+              //
+              icon: Icon(Icons.search),
+              //
+              onPressed: () {})
+        ],
       ),
       body: Container(
         child: Column(
@@ -38,7 +45,9 @@ class HomePage extends StatelessWidget {
         } else {
           return Container(
             height: 400.0,
-            child: Center(child: CircularProgressIndicator()),
+            child: Center(
+                //
+                child: CircularProgressIndicator()),
           );
         }
       },
@@ -75,7 +84,9 @@ class HomePage extends StatelessWidget {
                   nextPage: moviesProvider.getPopulars,
                 );
               } else {
-                return Center(child: CircularProgressIndicator());
+                return Center(
+                    //
+                    child: CircularProgressIndicator());
               }
             },
           ),

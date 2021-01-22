@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
 
+import 'package:peliculas_flutter/src/models/actores_model.dart';
 import 'package:peliculas_flutter/src/models/movie_model.dart';
 import 'package:http/http.dart' as http;
 
@@ -38,7 +39,8 @@ class MoviesProvider {
     final resp = await http.get(url);
     final decodedData = json.decode(resp.body);
 
-    //este constructor se encarga de barrer cada uno de los resultados y genera las peliculas y crea nuevas intancias de peliculas y los guarda aquí.
+    //este constructor se encarga de barrer cada uno de los resultados y genera
+    //las peliculas y crea nuevas intancias de peliculas y los guarda aquí.
     final movies = new Movies.fromJsonList(decodedData['results']);
 
     return movies.items;
@@ -75,5 +77,23 @@ class MoviesProvider {
 
     _loading = false;
     return resp;
+  }
+
+  Future<List<Actor>> getCast(String movieId) async {
+    //
+    //aquí se crea el url
+    final url = Uri.https(_url, '3/movie/$movieId/credits',
+        {'api_key': _apikey, 'language': _language});
+
+    //se ejecuta el http de la url, el await me sirve para esperar la respuesta
+    final resp = await http.get(url);
+
+    //en el decodedData se almacena la respuesta del map
+    final decodedData = json.decode(resp.body);
+
+    //se manda el map en su propiedad cast
+    final cast = new Cast.fromJsonList(decodedData['cast']);
+
+    return cast.actores;
   }
 }
