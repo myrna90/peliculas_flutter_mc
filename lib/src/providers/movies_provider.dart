@@ -96,4 +96,13 @@ class MoviesProvider {
 
     return cast.actores;
   }
+
+  Future<List<Movie>> movieSearch(String query) async {
+    //este metodo regresa un future que hace la petición a mi servicio y retorna las peliculas
+    //llamada a la url completa
+    final url = Uri.https(_url, '/3/search/movie',
+        {'api_key': _apikey, 'language': _language, 'query': query});
+
+    return await _processRespon(url);
+  }
 }
